@@ -1,7 +1,10 @@
-import { Constants } from "@/config/constants.js";
-import { commands, executeCommand } from "@/lib/command-module.js";
-import changeStuff from "./change-stuff.js";
+// import { Constants } from "@/config/constants.js";
+import { CommandExecuter } from "@/lib/command-module.js";
+import changeStuff from "./list/change-stuff.js";
 
-commands.set("change-stuff", changeStuff);
+// add your commands in this array
+const commands = [changeStuff];
 
-executeCommand();
+//this will register all the commands
+CommandExecuter.registerAll(commands);
+CommandExecuter.start();
