@@ -6,18 +6,25 @@
     "start": "node dist/index.js",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "dev": "nodemon --exec tsx src/index.ts",
-    "bun:dev": "bun --watch src/index.ts"
+    "bun:dev": "bun --watch src/index.ts",
+    "cmd": "tsx src/commands/index.ts",
+    "test": "node test.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
     "cors": "^2.8.5",
     "express": "^4.21.1",
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.7",
     "tsc": "^2.0.4",
     "tsc-alias": "^1.8.10",
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "winston": "^3.16.0"
   }
 }
