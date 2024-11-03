@@ -18,4 +18,20 @@ export class ServerEvents {
   static emitServerReady() {
     ServerEvents.events.server.forEach((fn) => fn());
   }
+
+  static onDBReady(fn: () => void) {
+    ServerEvents.events.db.push(fn);
+  }
+
+  static emitDBReady() {
+    ServerEvents.events.db.forEach((fn) => fn());
+  }
+
+  static onRedisReady(fn: () => void) {
+    ServerEvents.events.redis.push(fn);
+  }
+
+  static emitRedisReady() {
+    ServerEvents.events.redis.forEach((fn) => fn());
+  }
 }
