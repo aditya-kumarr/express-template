@@ -1,7 +1,6 @@
 import { Router } from "express";
 
-export function createAuthRouter() {
+export function createUserRouter() {
   const router = Router();
-  router.get("/token", (req, res) => {});
   return router;
 }
