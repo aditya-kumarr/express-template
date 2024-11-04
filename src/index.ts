@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "@/config/env.js";
 import { ServerEvents } from "./events/index.js";
 import "@/config/custom-type.js";
 import logger from "./lib/logger-module.js";
