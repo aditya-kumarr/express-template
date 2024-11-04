@@ -1,12 +1,12 @@
 import { createLogger, format, transports } from "winston";
 
-const { combine, timestamp, printf } = format;
+const { combine } = format;
 
 const consoleLogFormat = format.combine(
   format.colorize(),
   format.printf((info) => {
     return `$${info.level}: ${info.message}`;
-  })
+  }),
 );
 
 export const logger = createLogger({

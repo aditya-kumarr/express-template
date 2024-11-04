@@ -1,5 +1,5 @@
 import express from "express";
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response } from "express";
 import loggerMiddleware from "@/middlewares/logger-middleware.js";
 import { corsMiddleware } from "@/middlewares/cors-middleware.js";
 import { createAuthRouter } from "./auth/router.js";
@@ -15,10 +15,10 @@ app.use(corsMiddleware);
 app.use("/api/auth", createAuthRouter());
 app.use("/api/user", createUserRouter());
 
-app.get("/test", (req: Request, res: Response, next: NextFunction) => {
+app.get("/test", (req: Request, res: Response) => {
   res.statusCode = 200;
   res.json("OK");
-  return next();
+  return;
 });
 app.get("*", notFoundMiddleware);
 app.use(errorMiddleware);

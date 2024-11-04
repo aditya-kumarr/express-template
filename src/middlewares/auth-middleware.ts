@@ -10,6 +10,7 @@ export class AuthMiddlewares {
       }
 
       const payload = TokenModule.verifyAccessToken(accessToken);
+
       if (!payload) {
         res.status(401).json({ message: "invalid access token" });
         return;

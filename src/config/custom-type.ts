@@ -30,9 +30,6 @@ declare global {
       STRIPE_WEBHOOK_SECRET: string;
       STRIPE_SECRET_KEY: string;
     }
-    interface Global {
-      spotConfig: any;
-    }
   }
 
   namespace Express {

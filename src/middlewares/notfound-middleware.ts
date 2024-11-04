@@ -8,5 +8,5 @@ export function notFoundMiddleware(
   const error = new Error(
     `Route doesn't exist for ${req.method}: ${req.originalUrl}`
   );
-  next(error);
+  return next(error);
 }
