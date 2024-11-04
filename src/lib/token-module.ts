@@ -21,9 +21,10 @@ export class TokenModule {
     try {
       const payload = jwt.verify(
         refreshToken,
-        refreshTokenSecret
+        refreshTokenSecret,
       ) as AuthTokenPayload;
       return payload;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       //   console.log(error);
       return null;
@@ -36,9 +37,10 @@ export class TokenModule {
     try {
       const payload = jwt.verify(
         accessToken,
-        accessTokenSecret
+        accessTokenSecret,
       ) as AuthTokenPayload;
       return payload;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       // console.log(error);
       return null;

@@ -1,5 +1,5 @@
 import { Command } from "@/lib/command-module.js";
-import logger from "@/lib/logger-module.js";
+import childProcess from "child_process";
 import { Random } from "@/lib/utils.js";
 
 export default new Command({
@@ -8,7 +8,7 @@ export default new Command({
   fn: () => {
     const data = Random.generateString(64, "base64");
     console.log("Generated Secret:", data);
-    var proc = require("child_process").spawn("pbcopy");
+    const proc = childProcess.spawn("pbcopy");
     proc.stdin.write(data);
     proc.stdin.end();
     console.log("btw, also pasted to your clipboard :)");

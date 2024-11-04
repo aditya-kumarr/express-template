@@ -52,7 +52,7 @@ export class CommandExecuter {
    */
   static start() {
     const command = process.argv[2];
-    if (command == undefined) {
+    if (command === undefined) {
       CommandExecuter.listCommands();
     } else if (this.commands.has(command)) {
       this.commands.get(command)?.fn();

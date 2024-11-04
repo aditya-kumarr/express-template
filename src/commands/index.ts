@@ -1,5 +1,6 @@
 // import { Constants } from "@/config/constants.js";
-import { Command, CommandExecuter } from "@/lib/command-module.js";
+import type { Command} from "@/lib/command-module.js";
+import { CommandExecuter } from "@/lib/command-module.js";
 import generateTokenSecrets from "./list/generate-token-secrets.js";
 import { listRoutes } from "./list/routes.js";
 
