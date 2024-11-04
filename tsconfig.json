@@ -20,5 +20,11 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "src/**/*.ts", "src/**/*.d.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "src/test/setup.cjs",
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ]
 }
