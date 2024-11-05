@@ -6,9 +6,15 @@ import { CommandExecuter } from "@/lib/command-module.js";
 import generateTokenSecrets from "./list/generate-token-secrets.js";
 import { listRoutes } from "./list/routes.js";
 import testMail from "./list/test-mail.js";
+import { OTPCommands } from "./list/test-otp.js";
 
 // add your commands in this array
-const commands: Command[] = [generateTokenSecrets, listRoutes, testMail];
+const commands: Command[] = [
+  generateTokenSecrets,
+  listRoutes,
+  testMail,
+  ...Object.values(OTPCommands),
+];
 
 //this will register all the commands
 CommandExecuter.registerAll(commands);

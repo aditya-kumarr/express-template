@@ -8,7 +8,7 @@
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "dev": "nodemon --exec tsx src/index.ts",
     "bun:dev": "bun --watch src/index.ts",
-    "cmd": "tsx src/commands/index.ts",
+    "cmd": "bun src/commands/index.ts",
     "schedule": "tsx src/commands/schedular.ts",
     "test": "mocha -r tsx src/test/setup.ts -r tsx src/**/*.test*.ts",
     "lint": "eslint . src/**/* .ts",
