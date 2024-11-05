@@ -3,6 +3,8 @@ declare global {
     export interface ProcessEnv {
       // from .env
       NODE_ENV: "dev" | "staging" | "prod";
+      DATABASE_URL: string;
+      DATABASE_AUTH_TOKEN: string;
       ACCESS_TOKEN_SECRET: string;
       REFRESH_TOKEN_SECRET: string;
       OAUTH_STATE_TOKEN_SECRET: string;
