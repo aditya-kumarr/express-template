@@ -7,6 +7,7 @@ import { createUserRouter } from "./user/router.js";
 import { errorMiddleware } from "@/middlewares/error-middleware.js";
 import { notFoundMiddleware } from "@/middlewares/notfound-middleware.js";
 import cookieParser from "cookie-parser";
+import { createPublicRouter } from "./public/router.js";
 const app = express();
 
 app.use(cookieParser());
@@ -17,6 +18,7 @@ app.use(corsMiddleware);
 
 app.use("/api/auth", createAuthRouter());
 app.use("/api/user", createUserRouter());
+app.use("/files", createPublicRouter());
 
 app.get("/test", (req: Request, res: Response) => {
   res.statusCode = 200;

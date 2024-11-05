@@ -35,6 +35,9 @@ importers:
       express:
         specifier: ^4.21.1
         version: 4.21.1
+      express-fileupload:
+        specifier: ^1.5.1
+        version: 1.5.1
       express-list-endpoints:
         specifier: ^7.1.0
         version: 7.1.0
@@ -72,6 +75,9 @@ importers:
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.0
+      '@types/express-fileupload':
+        specifier: ^1.5.1
+        version: 1.5.1
       '@types/express-list-endpoints':
         specifier: ^6.0.3
         version: 6.0.3
@@ -711,6 +717,9 @@ packages:
   '@types/body-parser@1.19.5':
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
 
+  '@types/busboy@1.5.4':
+    resolution: {integrity: sha512-kG7WrUuAKK0NoyxfQHsVE6j1m01s6kMma64E+OZenQABMQyTJop1DumUWcLwAQ2JzpefU7PDYoRDKl8uZosFjw==}
+
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
 
@@ -725,6 +734,9 @@ packages:
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
+
+  '@types/express-fileupload@1.5.1':
+    resolution: {integrity: sha512-DllImBVI1lCyjl2klky/TEwk60mbNebgXv1669h66g9TfptWSrEFq5a/raHSutaFzjSm1tmn9ypdNfu4jPSixQ==}
 
   '@types/express-list-endpoints@6.0.3':
     resolution: {integrity: sha512-0lZ5pOHtivd8Vx49E5gBQHMTmccMCQTLGjPBsBKHABdC9b55VY86dxvhfMkbJefzaH0YHhgExWOg5WoG2gDIeg==}
@@ -978,6 +990,10 @@ packages:
 
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
+
+  busboy@1.6.0:
+    resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
+    engines: {node: '>=10.16.0'}
 
   bytes@3.1.2:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
@@ -1399,6 +1415,10 @@ packages:
   events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
+
+  express-fileupload@1.5.1:
+    resolution: {integrity: sha512-LsYG1ALXEB7vlmjuSw8ABeOctMp8a31aUC5ZF55zuz7O2jLFnmJYrCv10py357ky48aEoBQ/9bVXgFynjvaPmA==}
+    engines: {node: '>=12.0.0'}
 
   express-list-endpoints@7.1.0:
     resolution: {integrity: sha512-7FyKxABfkRC0t6B6btxlAcFr0WrpPAL12MFAGhAxoIi/OyphxVQzVmyuWbcNxEApBmNzzgt2khjlqj/3wyHMMA==}
@@ -2179,6 +2199,10 @@ packages:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
 
+  streamsearch@1.1.0:
+    resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
+    engines: {node: '>=10.0.0'}
+
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
     engines: {node: '>=8'}
@@ -2773,6 +2797,10 @@ snapshots:
       '@types/connect': 3.4.38
       '@types/node': 22.8.7
 
+  '@types/busboy@1.5.4':
+    dependencies:
+      '@types/node': 22.8.7
+
   '@types/connect@3.4.38':
     dependencies:
       '@types/node': 22.8.7
@@ -2788,6 +2816,11 @@ snapshots:
       '@types/node': 22.8.7
 
   '@types/estree@1.0.6': {}
+
+  '@types/express-fileupload@1.5.1':
+    dependencies:
+      '@types/busboy': 1.5.4
+      '@types/express': 5.0.0
 
   '@types/express-list-endpoints@6.0.3':
     dependencies:
@@ -3094,6 +3127,10 @@ snapshots:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
+
+  busboy@1.6.0:
+    dependencies:
+      streamsearch: 1.1.0
 
   bytes@3.1.2: {}
 
@@ -3480,6 +3517,10 @@ snapshots:
   event-target-shim@5.0.1: {}
 
   events@3.3.0: {}
+
+  express-fileupload@1.5.1:
+    dependencies:
+      busboy: 1.6.0
 
   express-list-endpoints@7.1.0: {}
 
@@ -4277,6 +4318,8 @@ snapshots:
   stack-trace@0.0.10: {}
 
   statuses@2.0.1: {}
+
+  streamsearch@1.1.0: {}
 
   string-width@4.2.3:
     dependencies:

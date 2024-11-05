@@ -102,7 +102,7 @@ export class ForgotPasswordController {
         res.status(404).json({ message: "OTP not validated" });
         return;
       }
-      // set the password to new password
+      // check if password is already used
       if (foundUser.password) {
         const oldPassword = await HashingModule.compare(
           payload.password,
@@ -115,11 +115,13 @@ export class ForgotPasswordController {
           return;
         }
       }
+      // set the password to new password
       const password = await HashingModule.hash(payload.password);
       await db
         .update(usersTable)
         .set({ password })
         .where(eq(usersTable.id, foundUser.id));
+      // delete the otp
       await OTPModule.deleteOTP(payload.email);
       res.json({ message: "password updated" });
       return;

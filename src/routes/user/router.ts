@@ -1,8 +1,11 @@
 import db from "@/db/db.js";
 import { usersTable } from "@/db/schema.js";
+import FileBasedBucket from "@/lib/bucket-module/file-storage.js";
 import { Random } from "@/lib/utils.js";
 import { AuthMiddlewares } from "@/middlewares/auth-middleware.js";
 import { Router } from "express";
+import fileUpload from "express-fileupload";
+import type { UploadedFile } from "express-fileupload";
 
 export function createUserRouter() {
   const router = Router();
@@ -15,8 +18,9 @@ export function createUserRouter() {
       data: data,
     });
   });
-  router.post("/add", async (req, res) => {
+  router.post("/add", fileUpload(), async (req, res) => {
     const random = Random.generateString(4, "hex");
+
     const data = await db
       .insert(usersTable)
       .values([{ email: `test-${random}@gmail.com` }]);
@@ -25,6 +29,21 @@ export function createUserRouter() {
       success: true,
       data: data,
     });
+  });
+
+  router.post("/upload", fileUpload(), async (req, res) => {
+    const file = req.files?.file;
+    if (!file) {
+      res.status(400).json({ message: "File is required" });
+      return;
+    } else if (file instanceof Array) {
+      res.status(400).json({ message: "Only one file is allowed" });
+      return;
+    } else {
+      const path = await FileBasedBucket.upload(file, "users/homework");
+      res.json({ path });
+      return;
+    }
   });
   return router;
 }
