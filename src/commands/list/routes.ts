@@ -6,6 +6,12 @@ export const listRoutes = new Command({
   name: "list-routes",
   description: "List all routes",
   fn: () => {
-    console.log(listEndpoints(app));
+    console.log(
+      listEndpoints(app).map((e) => ({
+        path: e.path,
+        methods: e.methods,
+        middlewares: e.middlewares.filter((m) => m !== "anonymous"),
+      })),
+    );
   },
 });
