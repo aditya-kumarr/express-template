@@ -2,6 +2,7 @@ declare global {
   namespace NodeJS {
     export interface ProcessEnv {
       // from .env
+      COOKIE_DOMAIN: string;
       NODE_ENV: "dev" | "staging" | "prod";
       DATABASE_URL: string;
       DATABASE_AUTH_TOKEN: string;
@@ -15,9 +16,7 @@ declare global {
       GOOGLE_CLIENT_ID: string;
       GOOGLE_CLIENT_SECRET: string;
       GOOGLE_REDIRECT_URI: string;
-      INSTAGRAM_CLIENT_SECRET: string;
-      INSTAGRAM_CLIENT_ID: string;
-      INSTAGRAM_REDIRECT_URI: string;
+
       X_CLIENT_ID: string;
       X_CLIENT_SECRET: string;
       X_REDIRECT_URI: string;

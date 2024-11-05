@@ -1,18 +1,11 @@
-import { TokenModule } from "@/lib/token-module.js";
 import { Router } from "express";
+import { AuthController } from "./controller.js";
 
 export function createAuthRouter() {
   const router = Router();
-
-  router.get("/");
-
-  router.get("/token", (_, res) => {
-    const token = TokenModule.signAccessToken({ userID: "1", email: "1" });
-
-    res.json({
-      token,
-    });
-  });
-  router.post("/logout");
+  router.post("/signup", AuthController.signup);
+  router.post("/login", AuthController.login);
+  router.get("/token", AuthController.refetchAccessToken);
+  router.post("/logout", AuthController.logout);
   return router;
 }

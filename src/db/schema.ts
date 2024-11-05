@@ -11,7 +11,8 @@ export const usersTable = sqliteTable(
   {
     id: integer().primaryKey({ autoIncrement: true }).notNull(),
     email: text().notNull(),
-    refreshToken: text().notNull(),
+    refreshToken: text(),
+    password: text(),
   },
   (table) => {
     return {

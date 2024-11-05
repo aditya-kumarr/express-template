@@ -15,6 +15,20 @@
       "when": 1730769157333,
       "tag": "0001_long_purifiers",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1730772036942,
+      "tag": "0002_previous_glorian",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1730772100869,
+      "tag": "0003_adorable_monster_badoon",
+      "breakpoints": true
     }
   ]
 }

@@ -7,9 +7,9 @@ import { Router } from "express";
 export function createUserRouter() {
   const router = Router();
 
-  router.get("/list", async (req, res) => {
+  router.get("/list", AuthMiddlewares.validateAccessToken, async (req, res) => {
     // db.insert(usersTable).values([{ email: "1" }]).run();
-    const data = await db.query.usersTable.findFirst();
+    const data = await db.query.usersTable.findMany();
     res.json({
       success: true,
       data: data,

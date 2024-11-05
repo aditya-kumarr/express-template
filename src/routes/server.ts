@@ -6,8 +6,11 @@ import { createAuthRouter } from "./auth/router.js";
 import { createUserRouter } from "./user/router.js";
 import { errorMiddleware } from "@/middlewares/error-middleware.js";
 import { notFoundMiddleware } from "@/middlewares/notfound-middleware.js";
+import cookieParser from "cookie-parser";
 const app = express();
-app.use(express.json());
+
+app.use(cookieParser());
+app.use(express.json({}));
 app.use(express.urlencoded({ extended: true }));
 app.use(loggerMiddleware);
 app.use(corsMiddleware);
@@ -20,7 +23,7 @@ app.get("/test", (req: Request, res: Response) => {
   res.json("OK");
   return;
 });
-app.get("*", notFoundMiddleware);
+app.use("*", notFoundMiddleware);
 app.use(errorMiddleware);
 
 export default app;
