@@ -16,6 +16,7 @@ export const usersTable = sqliteTable(
     email: text().notNull(),
     refreshToken: text(),
     password: text(),
+    verified: integer().default(0),
   },
   (table) => {
     return {

@@ -1,13 +1,18 @@
 import { bodyValidator } from "@/lib/validation-module.js";
 import type { Infer } from "@vinejs/vine/types";
 import type { Request, Response, NextFunction } from "express";
-import { validateLogin, validateSignup } from "./validator.js";
+import {
+  validateLogin,
+  validateSignup,
+  validateSignupVerify,
+} from "./validator.js";
 import db from "@/db/db.js";
 import { HashingModule } from "@/lib/hashing-module.js";
 import { usersTable } from "@/db/schema.js";
 import { TokenModule } from "@/lib/token-module.js";
 import { and, eq } from "drizzle-orm";
 import { constants, getCookieOptions } from "@/lib/cookie-module.js";
+import { OTPModule } from "@/lib/otp-module.js";
 
 export class AuthController {
   @bodyValidator(validateSignup)
@@ -18,39 +23,78 @@ export class AuthController {
       const existingUser = await db.query.usersTable.findFirst({
         where: (data, { eq }) => eq(data.email, payload.email),
       });
-      if (existingUser) {
+      if (existingUser && existingUser.verified === 1) {
         res.status(422).json({ message: "User already exists" });
         return;
+      } else if (existingUser && existingUser.verified === 0) {
+        await db.delete(usersTable).where(eq(usersTable.email, payload.email));
       }
 
       const hash = await HashingModule.hash(payload.password);
-      const data = await db
+      await db
         .insert(usersTable)
         .values([{ email: payload.email, password: hash }])
         .returning({ id: usersTable.id, email: usersTable.email });
 
+      await OTPModule.sendMailOTP({ email: payload.email });
+      res.status(202).json({ message: "proceed with otp" });
+      return;
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  @bodyValidator(validateSignupVerify)
+  static async verifySignup(req: Request, res: Response, next: NextFunction) {
+    try {
+      const payload = req.body as Infer<typeof validateSignupVerify>;
+
+      const verified = await OTPModule.verifyMailOTP(
+        payload.email,
+        payload.otp,
+      );
+      if (!verified) {
+        res.status(401).json({ message: "invalid otp" });
+        return;
+      }
+
+      const user = await db.query.usersTable.findFirst({
+        where: (data, { eq }) => eq(data.email, payload.email),
+        columns: {
+          id: true,
+          verified: true,
+          email: true,
+        },
+      });
+
+      if (!user) {
+        res.status(409).json({ message: "user not found" });
+        return;
+      }
+      if (user.verified === 1) {
+        res.status(409).json({ message: "user already verified" });
+        return;
+      }
+
       const refreshToken = TokenModule.signRefreshToken({
         email: payload.email,
-        userID: data[0].id.toString(),
+        userID: user.id.toString(),
       });
 
       const accessToken = TokenModule.signAccessToken({
         email: payload.email,
-        userID: data[0].id.toString(),
+        userID: user.id.toString(),
       });
 
       await db
         .update(usersTable)
         .set({ refreshToken })
-        .where(eq(usersTable.id, data[0].id));
+        .where(eq(usersTable.id, user.id));
 
       res.cookie(...getCookieOptions(refreshToken));
       res.json({
-        success: true,
-        data: {
-          accessToken,
-          user: data[0],
-        },
+        accessToken,
+        user: user,
       });
       return;
     } catch (error) {
@@ -66,7 +110,9 @@ export class AuthController {
       const user = await db
         .select({ id: usersTable.id, password: usersTable.password })
         .from(usersTable)
-        .where(eq(usersTable.email, payload.email));
+        .where(
+          and(eq(usersTable.email, payload.email), eq(usersTable.verified, 1)),
+        );
 
       if (user.length === 0) {
         res.status(404).json({ message: "User not found" });
@@ -133,7 +179,7 @@ export class AuthController {
       }
 
       const user = await db
-        .select({ id: usersTable.id })
+        .select({ id: usersTable.id, email: usersTable.email })
         .from(usersTable)
         .where(
           and(
@@ -150,7 +196,7 @@ export class AuthController {
         email: payload.email,
         userID: payload.userID,
       });
-      res.json({ success: true, data: { accessToken } });
+      res.json({ accessToken, user: user });
       return;
     } catch (error) {
       next(error);
